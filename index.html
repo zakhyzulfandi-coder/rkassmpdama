@@ -2,74 +2,191 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Aplikasi Darul Aman</title>
     
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Darul Aman">
+    <meta name="mobile-web-app-capable" content="yes">
+    
     <link rel="icon" href="https://darulaman.sch.id/wp-content/uploads/2023/09/Logo-Darul-Aman.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://darulaman.sch.id/wp-content/uploads/2023/09/Logo-Darul-Aman.png">
     
     <style>
-        /* Mengatur tata letak halaman */
-        body {
+        /* Mengatur halaman agar 100% penuh tanpa jarak */
+        body, html {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
+            height: 100%;
+            overflow: hidden; /* Mencegah scrolling browser */
             background-color: #f8f9fa;
         }
 
-        /* Desain Header (Bagian atas yang berisi logo) */
-        header {
-            background-color: #ffffff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        header img {
-            height: 60px; /* Ukuran logo, bisa disesuaikan */
-            margin-right: 15px;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 22px;
-            color: #2c3e50;
-        }
-
-        /* Container untuk menampung iframe agar responsif */
-        .iframe-container {
-            flex: 1; /* Mengambil sisa tinggi layar */
-            width: 100%;
-            overflow: hidden; /* Mencegah scroll ganda */
-            position: relative;
-        }
-
-        /* Mengatur iframe aplikasi */
+        /* Iframe embed full screen */
         iframe {
             position: absolute;
             top: 0;
             left: 0;
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            display: block;
+        }
+
+        /* --- Desain Popup Install untuk Mobile --- */
+        #install-prompt {
+            position: fixed;
+            bottom: -120px; /* Sembunyikan di bawah layar awalnya */
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            box-sizing: border-box;
+            z-index: 9999;
+            transition: bottom 0.5s ease-in-out;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Class untuk menampilkan popup */
+        #install-prompt.show {
+            bottom: 0;
+        }
+
+        #install-prompt img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            margin-right: 15px;
+        }
+
+        .install-text {
+            flex-grow: 1;
+        }
+
+        .install-text h4 {
+            margin: 0 0 4px 0;
+            font-size: 16px;
+            color: #2c3e50;
+        }
+
+        .install-text p {
+            margin: 0;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        .install-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #bdc3c7;
+            margin-left: 10px;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+
+        /* --- Overlay Instruksi Cara Install --- */
+        #instruction-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            border: none;
+            background: rgba(0,0,0,0.85);
+            z-index: 10000;
+            color: white;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #instruction-overlay h2 {
+            margin-top: 0;
+            color: #f1c40f;
+        }
+
+        #instruction-overlay p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <img src="https://darulaman.sch.id/wp-content/uploads/2023/09/Logo-Darul-Aman.png" alt="Logo Darul Aman">
-        <h1>Portal Darul Aman</h1>
-    </header>
+    <iframe src="URL_APPSCRIPT_ANDA_DI_SINI" title="Aplikasi Darul Aman"></iframe>
 
-    <div class="iframe-container">
-        <iframe src="https://script.google.com/macros/s/AKfycbwlXfC9P0mUhXcPqorhcIRIsU8zoBk_6HuMAgl4AhO18ck80RbsuNqT9RXAFy46pKU8/exec" title="Aplikasi Darul Aman"></iframe>
+    <div id="install-prompt">
+        <img src="https://darulaman.sch.id/wp-content/uploads/2023/09/Logo-Darul-Aman.png" alt="Logo Darul Aman">
+        <div class="install-text">
+            <h4>Darul Aman App</h4>
+            <p>Pasang di Layar Utama HP Anda.</p>
+        </div>
+        <button class="install-btn" onclick="showInstructions()">Install</button>
+        <button class="close-btn" onclick="closePrompt()">&times;</button>
     </div>
 
+    <div id="instruction-overlay" onclick="closeInstructions()">
+        <h2>Cara Install Aplikasi</h2>
+        <p>1. Ketuk ikon <strong>Bagikan (Share)</strong> <br>atau menu <strong>Titik Tiga (⋮)</strong> di browser HP Anda.</p>
+        <p>2. Pilih menu <strong>"Tambahkan ke Layar Utama"</strong> <br> atau <strong>"Add to Home Screen"</strong>.</p>
+        <br>
+        <p style="font-size: 13px; color: #bdc3c7;">(Ketuk di mana saja pada layar untuk menutup)</p>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // Deteksi apakah perangkat adalah Mobile (Android/iOS)
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            // Deteksi apakah aplikasi sudah dibuka dari Layar Utama (Standalone Mode)
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+            // Jika pengguna menggunakan HP dan belum menginstall aplikasi
+            if (isMobile && !isStandalone) {
+                // Tampilkan popup setelah 2 detik
+                setTimeout(() => {
+                    document.getElementById('install-prompt').classList.add('show');
+                }, 2000);
+            }
+        };
+
+        // Fungsi saat tombol Install diklik
+        function showInstructions() {
+            document.getElementById('install-prompt').classList.remove('show'); // Sembunyikan popup bawah
+            document.getElementById('instruction-overlay').style.display = 'flex'; // Tampilkan layar instruksi
+        }
+
+        // Fungsi saat tombol silang (X) diklik
+        function closePrompt() {
+            document.getElementById('install-prompt').classList.remove('show');
+        }
+
+        // Fungsi menutup layar instruksi
+        function closeInstructions() {
+            document.getElementById('instruction-overlay').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
