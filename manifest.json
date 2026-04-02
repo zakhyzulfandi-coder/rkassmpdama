@@ -1,21 +1,21 @@
 {
-  "name": "RKAS SMP",
-  "short_name": "Dama",
-  "start_url": "/rkassmpdama/",
-  "scope": "/rkassmpdama/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2c3e50",
+  "name": "Aplikasi Darul Aman",
+  "short_name": "Darul Aman",
+  "description": "Portal Resmi Darul Aman",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "https://darulaman.sch.id/wp-content/uploads/2023/09/Logo-Darul-Aman.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon-512.png",
+      "src": "https://darulaman.sch.id/wp-content/uploads/2023/09/Logo-Darul-Aman.png",
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff"
 }
