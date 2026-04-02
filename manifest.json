@@ -2,6 +2,13 @@
   "name": "Aplikasi Darul Aman",
   "short_name": "Darul Aman",
   "description": "Portal Resmi Darul Aman",
+  "lang": "id-ID",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "https://darulaman.sch.id/wp-content/uploads/2023/09/Logo-Darul-Aman.png",
@@ -13,9 +20,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff"
+  ]
 }
