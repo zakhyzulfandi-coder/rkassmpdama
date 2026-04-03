@@ -105,32 +105,33 @@
     </div>
 
     <script>
+        // 1. REGISTRASI SERVICE WORKER (ANTI-DINO)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                .then(registration => console.log('Service Worker terdaftar!'))
+                .catch(err => console.log('Pendaftaran Service Worker gagal: ', err));
+            });
+        }
+
+        // 2. LOGIKA LAYAR OFFLINE ANIMASI
         const offlineScreen = document.getElementById('offline-screen');
         const appFrame = document.getElementById('app-frame');
 
-        // Fungsi untuk memperbarui tampilan berdasarkan status jaringan
         function checkNetworkStatus() {
             if (navigator.onLine) {
-                // Jika ONLINE: Sembunyikan layar error
                 offlineScreen.style.display = 'none';
             } else {
-                // Jika OFFLINE: Tampilkan layar error dengan animasi
                 offlineScreen.style.display = 'flex';
             }
         }
 
-        // Jalankan pengecekan saat halaman pertama kali dimuat
         window.addEventListener('load', checkNetworkStatus);
-
-        // Pantau jika internet tiba-tiba mati
         window.addEventListener('offline', checkNetworkStatus);
-
-        // Pantau jika internet kembali menyala
         window.addEventListener('online', () => {
             checkNetworkStatus();
-            
-            // Opsi Tambahan: Muat ulang iframe agar aplikasi mengambil data terbaru setelah online
-            // appFrame.src = appFrame.src; 
+            // Muat ulang iframe otomatis saat online kembali
+            appFrame.src = appFrame.src; 
         });
     </script>
 </body>
