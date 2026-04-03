@@ -1,77 +1,34 @@
-const CACHE_NAME = "rohis-ikhwah-v1";
-
+const CACHE_NAME = 'darul-aman-offline-v1';
 const urlsToCache = [
-  "./",
-  "./index.html",
-  "./manifest.json",
-  "./icon-192.png",
-  "./icon-512.png"
+  './',
+  './index.html',
+  './manifest.json'
 ];
 
-self.addEventListener("install", event => {
-
-  console.log("Service Worker Installed");
-
+// Tahap Install: Menyimpan file inti ke dalam cache memori perangkat
+self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
         return cache.addAll(urlsToCache);
       })
   );
-
-  self.skipWaiting();
-
 });
 
-self.addEventListener("activate", event => {
-
-  console.log("Service Worker Activated");
-
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
-          }
-        })
-      );
-    })
-  );
-
-  self.clients.claim();
-
-});
-
-self.addEventListener("fetch", event => {
-
+// Tahap Fetch: Mengambil dari cache saat tidak ada internet
+self.addEventListener('fetch', event => {
   event.respondWith(
-
     caches.match(event.request)
       .then(response => {
-
-        if (response) {
-          return response;
+        // Jika file ada di cache, gunakan itu. Jika tidak, ambil dari internet.
+        return response || fetch(event.request);
+      }).catch(() => {
+        // JIKA GAGAL KEDUANYA (TIDAK ADA INTERNET):
+        // Kembalikan file index.html yang sudah dicache. 
+        // Ini yang mencegah Dino muncul!
+        if (event.request.mode === 'navigate' || event.request.destination === 'document') {
+          return caches.match('./index.html');
         }
-
-        return fetch(event.request).then(networkResponse => {
-
-          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== "basic") {
-            return networkResponse;
-          }
-
-          const responseToCache = networkResponse.clone();
-
-          caches.open(CACHE_NAME)
-            .then(cache => {
-              cache.put(event.request, responseToCache);
-            });
-
-          return networkResponse;
-
-        });
-
       })
   );
-
 });
