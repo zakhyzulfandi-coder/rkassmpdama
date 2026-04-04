@@ -31,10 +31,10 @@
         /* Iframe embed */
         iframe {
             position: absolute;
-            top: 0;
+            top: -5px; /* Trik: Geser iframe 5 pixel ke atas untuk menyembunyikan loading bar Google */
             left: 0;
             width: 100vw;
-            height: 100vh;
+            height: calc(100vh + 5px); /* Tambahkan 5 pixel ke bawah agar layar tidak terpotong di bagian bawah */
             border: none;
             display: block;
             z-index: 1;
